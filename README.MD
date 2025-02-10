@@ -19,13 +19,15 @@ In this tutorial we show how we can use OpenTelemetry to collect monitoring data
 2. Fill it with the following contents:
 
 ``` 
-Span: Foo {
+Span: OTelSpan {
+        // Semantic types for the default OpenTelemetry span parameters
 	trace:  trace
-	parentTrace:   parentspan
+	parentSpan:   parentspan
 	spanId:  spanId
 	startT:  startT
 	endT: endT
 
+        // Additional attributes to the OpenTelemetry span
 	attributes:
 	type string operation_signature
 	type string session_id
@@ -35,19 +37,13 @@ Span: Foo {
 
 }	
 
-new: CustomRecord normal {
-	int numeric
-	string text
-	bool flag
-}
-
-
+// Declare usage of existing Kieker record type
 Reuse: OperationExecutionRecord
 
-default mapping Foo -> OperationExecutionRecord
+// Describe a mapping between the OTel span and the Kieker record
+default mapping OTelSpan -> OperationExecutionRecord
 
-
-
+// Declare where the collector runs and recceives the Kieker records
 collector:{
 	port: 1234
 	hostname: "localhost"
@@ -55,14 +51,13 @@ collector:{
 
 ```
 
-3. Run `java -jar otkt.jar <otkt/file > <output/destination>`
+3. Run `java -jar otkt.jar <otkt/file> <output/destination>`
 
 4. In the ouput folder you will find `collector` and `python` folders.
 Go to `collector` and run `mvn compile` `mvn install`
 
-5. Create `config.txt` with following content
+5. Create `config.txt` with following content:
 
-6. 
 ``` 
 ## The name of the Kieker instance.
 kieker.monitoring.name=KIEKER
@@ -120,17 +115,19 @@ kieker.monitoring.writer.filesystem.FileWriter.bufferSize=81920
 
 ```
 
+6. Change the value for `kieker.monitoring.writer.filesystem.FileWriter.customStoragePath`.
+
 7. Inside `collector/target` run `java -jar Collector-0.0.1-SNAPSHOT-jar-with-dependencies.jar -c <path/to/config.txt>`
 
-8. To instrument a python program copy and paste python files in generated `python` folder into the location of the python program.
+8. To instrument a python program, copy and paste python files from the generated `python` folder into the location of your python program.
 
-9. Inside the entry point of your Python program paste
+9. Inside the entry point of your Python program paste:
 
 ```python
 from otelinit import tracer
 ```
 
-10. To instrument a python program you can either follow standard manual approach by changing each function definition :
+10. To instrument a python program you can either follow standard manual approach by changing each function definition:
 
 ```python
 def foo():
