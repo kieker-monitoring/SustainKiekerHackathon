@@ -145,7 +145,8 @@ def foo():
     
 }
 ```
-* Alternatively you can predefine a decorator:
+
+* Alternatively, you can make a Python module `OTelInstument.py` defining a decorator (recommended):
 ```python
 def instrument(func):
     attributes = { "ess": 0
@@ -165,6 +166,18 @@ def instrument(func):
 ```
 This decorator can then be used to annotate functions in python
 ```python
+@instrument
+def foo():
+    pass
+
+// For a class method:
+@classmethod
+@instrument
+def foo():
+    pass
+
+// For a static method:
+@staticmethod
 @instrument
 def foo():
     pass
