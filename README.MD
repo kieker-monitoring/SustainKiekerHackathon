@@ -116,7 +116,7 @@ kieker.monitoring.writer.filesystem.FileWriter.bufferSize=81920
 
 ```
 
-7. Inside `collector/target` run `java -jar collector-jar-with-dependencies -c <path/to/config.txt>`
+7. Inside `collector/target` run `java -jar Collector-0.0.1-SNAPSHOT-jar-with-dependencies.jar -c <path/to/config.txt>`
 
 8. To instrument a python program copy and paste python files in generated `python` folder into the location of the python program.
 
