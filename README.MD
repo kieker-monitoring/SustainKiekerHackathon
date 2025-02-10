@@ -143,7 +143,7 @@ def foo():
 }
 ```
 * Alternatively you can predefine a decorator:
-```
+```python
 def instrument(func):
     attributes = { "ess": 0
     }
@@ -161,7 +161,7 @@ def instrument(func):
     return instrument_func
 ```
 This decorator can then be used to annotate functions in python
-```
+```python
 @instrument
 def foo():
     pass
