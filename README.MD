@@ -122,7 +122,9 @@ kieker.monitoring.writer.filesystem.FileWriter.bufferSize=81920
 
 9. Inside the entry point of your Python program paste
 
-`from otelinit import tracer`
+```python
+from otelinit import tracer
+```
 
 10. To instrument a python program you can either follow standard manual approach by changing each function definition :
 * 
