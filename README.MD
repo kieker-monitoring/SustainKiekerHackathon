@@ -6,6 +6,10 @@ Kieker is a monitoring framework that features monitoring and analysis capabilit
 OpenTelemetry on the other side provides means to monitor the program and the analysis must be performed with other tools.
 In this tutorial we show how we can use OpenTelemetry to collect monitoring data and send it to Kieker Analysis endpoint.
 
+## Prerequistes
+
+1. Maven
+
 ## Instructions
 
 ### Otkt generator
