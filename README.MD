@@ -131,7 +131,7 @@ from otelinit import tracer
 ```
 
 10. To instrument a python program you can either follow standard manual approach by changing each function definition :
-* 
+
 ```python
 def foo():
       with tracer.start_as_current_span("foo") as foo:
