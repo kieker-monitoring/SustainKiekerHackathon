@@ -171,6 +171,8 @@ def instrument(func):
 ```
 This decorator can then be used to annotate functions in python
 ```python
+from otkt import instrument
+
 @instrument
 def foo():
     pass
