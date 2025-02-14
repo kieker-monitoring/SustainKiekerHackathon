@@ -148,6 +148,8 @@ def foo():
 
 * Alternatively, you can make a Python module `OTelInstument.py` defining a decorator (recommended):
 ```python
+from opentelemetry import trace
+
 def instrument(func):
     attributes = { "ess": 0
     }
