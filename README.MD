@@ -150,6 +150,8 @@ def foo():
 ```python
 from opentelemetry import trace
 
+# Create a OTel tracer
+tracer = trace.get_trace(__name__)
 def instrument(func):
     attributes = { "ess": 0
     }
