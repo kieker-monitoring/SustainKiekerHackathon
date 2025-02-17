@@ -9,6 +9,13 @@ In this tutorial we show how we can use OpenTelemetry to collect monitoring data
 ## Prerequistes
 
 1. Maven
+2. GNU plotutils
+```bash
+# Fedora 40, 41, 42
+sudo dnf install plotutils
+# Ubuntu 20.04, 22.04, 24.04
+sudo apt install plotutils
+```
 
 ## Instructions
 
