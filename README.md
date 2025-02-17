@@ -70,9 +70,16 @@ Using Otkt, we show how we can use OpenTelemetry to collect monitoring data from
    }
    ```
 
-2. Run `java -jar otkt.jar <otkt/file> <output/destination>`. It creates three Python modules and one Kieker collector.
+2. Build the Otkt program with the below command:
+   
+   ```bash
+   java -jar otkt.jar MyMapping.otkt MyOutput
    ```
-   output/
+   
+   It creates three Python modules and an Otkt collector:
+   
+   ```
+   MyOutput/
    ├ python/
    │ ├ kiekerexporter.py
    │ ├ kiekerprocessor.py
@@ -84,10 +91,14 @@ Using Otkt, we show how we can use OpenTelemetry to collect monitoring data from
      └ pom.xml
    ```
 
-4. In the ouput folder you will find `collector` and `python` folders.
-Go to `collector` and run `mvn compile` `mvn install`
+4. Build the Otkt collector with maven.
+   ```bash
+   cd MyOutput/collector
+   mvn compile
+   mvn install
+   ```
 
-5. Create `config.txt` with the following content.
+7. Create `config.txt` with the following content.
 
    ```
    ## The name of the Kieker instance.
@@ -145,18 +156,18 @@ Go to `collector` and run `mvn compile` `mvn install`
    kieker.monitoring.writer.filesystem.FileWriter.bufferSize=81920
    ```
 
-6. Make sure to change the value for `kieker.monitoring.writer.filesystem.FileWriter.customStoragePath`. This is where all kieker records are stored as files.
+8. Make sure to change the value for `kieker.monitoring.writer.filesystem.FileWriter.customStoragePath`. This is where all kieker records are stored as files.
 
-7. Inside `collector/target` run `java -jar Collector-0.0.1-SNAPSHOT-jar-with-dependencies.jar -c <path/to/config.txt>`
+9. Inside `collector/target` run `java -jar Collector-0.0.1-SNAPSHOT-jar-with-dependencies.jar -c <path/to/config.txt>`
 
-8. To instrument a python program, copy and paste python files from the generated `python` folder into the location of your python program.
+10. To instrument a python program, copy and paste python files from the generated `python` folder into the location of your python program.
 
-9. Inside the entry point of your Python program paste:
+11. Inside the entry point of your Python program paste:
     ```python
     from otelinit import tracer
     ```
 
-10. To instrument a python program you can either follow standard manual approach by changing each function definition:
+12. To instrument a python program you can either follow standard manual approach by changing each function definition:
     ```python
     def foo():
           with tracer.start_as_current_span("foo") as foo:
