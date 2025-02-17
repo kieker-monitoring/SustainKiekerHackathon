@@ -10,7 +10,7 @@ Using Otkt, we show how we can use OpenTelemetry to collect monitoring data from
 
 1. Maven
    1. Install manually: [https://maven.apache.org/install.html](https://maven.apache.org/install.html)
-   2. From dis
+   2. From distribution repositories:
       ```bash
       # Fedora 40, 41, 42
       sudo dnf install maven
