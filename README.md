@@ -211,7 +211,7 @@ def foo():
 def foo():
     pass
 ```
-10. Make sure you have all required dependencies. A python project usually comes with `requirements.txt`. Append the following lines:
+11. Make sure you have all required dependencies. A python project usually comes with `requirements.txt`. Append the following lines:
     ```
     opentelemetry-api==1.18.0
     opentelemetry-sdk==1.18.0
