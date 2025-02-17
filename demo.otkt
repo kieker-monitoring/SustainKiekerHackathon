@@ -1,0 +1,28 @@
+Span: OTelSpan {
+  // Semantic types
+  trace: traceId
+  parentSpan: parentSpanId
+  spanId: spanId
+  startT: startTime
+  endT: endTime
+
+  // Additional attributes to the OpenTelemetry span
+  attributes:
+  type string operation_signature
+  type string session_id
+  type int eoi
+  type int ess
+  type string hostname
+}
+
+// Declare usage of existing Kieker record type
+Reuse: OperationExecutionRecord
+
+// Describe a mapping between the OTel span and the Kieker record
+default mapping OTelSpan -> OperationExecutionRecord
+
+// Declare where the collector runs and recceives the Kieker records
+collector:{
+  port: 1234
+  hostname: "localhost"
+}
