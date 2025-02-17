@@ -45,14 +45,14 @@ Using Otkt, we show how we can use OpenTelemetry to collect monitoring data from
 
    ```
    Span: OTelSpan {
-           // Semantic types for the default OpenTelemetry span parameters
+      // Semantic types for the default OpenTelemetry span parameters
    	trace:  trace
    	parentSpan:   parentspan
    	spanId:  spanId
    	startT:  startT
    	endT: endT
 
-           // Additional attributes to the OpenTelemetry span
+      // Additional attributes to the OpenTelemetry span
    	attributes:
    	type string operation_signature
    	type string session_id
@@ -78,7 +78,7 @@ Using Otkt, we show how we can use OpenTelemetry to collect monitoring data from
 2. Build the Otkt program with the below command:
 
    ```bash
-   java -jar /path/to/otkt.jar MyMapping.otkt /path/to/MyOutput
+   java -jar /path/to/otkt.jar /path/to/MyMapping.otkt /path/to/MyOutput
    ```
 
    It creates three Python modules and an Otkt collector:
