@@ -211,9 +211,17 @@ def foo():
 def foo():
     pass
 ```
-11. You can run your code. The results of the kieker monitoring can be found in the output destination you specified in "config.txt" above.
+10. Make sure you have all required dependencies. A python project usually comes with `requirements.txt`. Append the following lines:
+    ```
+    opentelemetry-api==1.18.0
+    opentelemetry-sdk==1.18.0
+    opentelemetry-exporter-otlp==1.18.0
+    opentelemetry-instrumentation==0.40b0
+    kiekerforpython
+    ```
+12. You can run your code. The results of the kieker monitoring can be found in the output destination you specified in "config.txt" above.
 
-12. To analyze the output you can use trace analysis of kieker. 
+13. To analyze the output you can use trace analysis of kieker. 
 Download the trace-analysis tool.
 
-13. Run 
+14. Run 
