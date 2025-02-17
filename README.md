@@ -192,8 +192,7 @@ Using Otkt, we show how we can use OpenTelemetry to collect monitoring data from
     }
     ```
 
-    * Alternatively, you can make a Python module `OTelInstument.py` defining a decorator (recommended):
-      (Mapped to Kieker's OperationExecutionMethod)
+    * Alternatively, you can make a Python module `instument.py` defining a decorator (recommended). Place the file inside the `otkt` folder.
        ```python
        from opentelemetry import trace
 
