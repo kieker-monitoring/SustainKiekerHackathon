@@ -78,7 +78,7 @@ Using Otkt, we show how we can use OpenTelemetry to collect monitoring data from
 
    ```
    MyOutput/
-   ├ python/
+   ├ otkt/
    │ ├ kiekerexporter.py
    │ ├ kiekerprocessor.py
    │ └ otelinit.py
