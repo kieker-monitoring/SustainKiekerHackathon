@@ -4,7 +4,7 @@
 
 Kieker observability framework features monitoring and analysis capabilities.
 OpenTelemetry, in comparison, provides means to monitor the program but analysis.
-In this tutorial we show how we can use OpenTelemetry to collect monitoring data from a Python program and send it to a Kieker Analysis endpoint.
+In this tutorial, we show how we can use OpenTelemetry to collect monitoring data from a Python program and send it to a Kieker Analysis endpoint.
 
 ## Prerequistes
 
