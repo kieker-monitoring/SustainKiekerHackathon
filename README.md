@@ -69,13 +69,13 @@ Using Otkt, we show how we can use OpenTelemetry to collect monitoring data from
    ```
 
 2. Build the Otkt program with the below command:
-   
+
    ```bash
    java -jar otkt.jar MyMapping.otkt MyOutput
    ```
-   
+
    It creates three Python modules and an Otkt collector:
-   
+
    ```
    MyOutput/
    ├ python/
@@ -101,55 +101,55 @@ Using Otkt, we show how we can use OpenTelemetry to collect monitoring data from
    ```
    ## The name of the Kieker instance.
    kieker.monitoring.name=KIEKER
-   
+
    ## Auto detect hostname for the writer
    kieker.monitoring.hostname=
-   
+
    ## Output metadata record
    kieker.monitoring.metadata=true
-   
-   
+
+
    kieker.monitoring.writer=kieker.monitoring.writer.filesystem.FileWriter
-   
+
    ## FileWriter settings
    ## output path
-   
-   
+
+
    kieker.monitoring.writer.filesystem.FileWriter.customStoragePath=/path/to/kieker/ouput
-   
-   
+
+
    kieker.monitoring.writer.filesystem.FileWriter.charsetName=UTF-8
-   
+
    ## Number of entries per file
    kieker.monitoring.writer.filesystem.FileWriter.maxEntriesInFile=25000
-   
+
    ## Limit of the log file size; -1 no limit
    kieker.monitoring.writer.filesystem.FileWriter.maxLogSize=-1
-   
+
    ## Limit number of log files; -1 no limit
    kieker.monitoring.writer.filesystem.FileWriter.maxLogFiles=-1
-   
+
    ## Map files are written as text files
    kieker.monitoring.writer.filesystem.FileWriter.mapFileHandler=kieker.monitoring.writer.filesystem.TextMapFileHandler
-   
+
    ## Flush map file after each record
    kieker.monitoring.writer.filesystem.TextMapFileHandler.flush=true
-   
+
    ## Do not compress the map file
    kieker.monitoring.writer.filesystem.TextMapFileHandler.compression=kieker.monitoring.writer.compression.NoneCompressionFilter
-   
+
    ## Log file pool handler
    kieker.monitoring.writer.filesystem.FileWriter.logFilePoolHandler=kieker.monitoring.writer.filesystem.RotatingLogFilePoolHandler
-   
+
    ## Text log for record data
    kieker.monitoring.writer.filesystem.FileWriter.logStreamHandler=kieker.monitoring.writer.filesystem.TextLogStreamHandler
-   
+
    ## Do not compress the log file
    kieker.monitoring.writer.filesystem.TextLogStreamHandler.compression=kieker.monitoring.writer.compression.NoneCompressionFilter
-   
+
    ## Flush log data after every record
    kieker.monitoring.writer.filesystem.FileWriter.flush=true
-   
+
    ## buffer size. The log buffer size must be big enough to hold the biggest record
    kieker.monitoring.writer.filesystem.FileWriter.bufferSize=81920
    ```
@@ -183,7 +183,7 @@ Using Otkt, we show how we can use OpenTelemetry to collect monitoring data from
   (Mapped to Kieker's OperationExecutionMethod)
    ```python
    from opentelemetry import trace
-   
+
    # Create a OTel tracer
    tracer = trace.get_trace(__name__)
    def instrument(func):
@@ -198,24 +198,24 @@ Using Otkt, we show how we can use OpenTelemetry to collect monitoring data from
                foo.set_attribute("session_id", "<no-session-id>")  # session_id is only relevant with Kieker agent on Java applications
                foo.set_attribute("hostname", "localhost") # Target application should provide hostname.
                result = func(*args, **kwargs)
-   
+
                return result
        return instrument_func
    ```
 * This decorator can then be used to annotate functions in python
    ```python
    from otkt import instrument
-   
+
    @instrument
    def foo():
        pass
-   
+
    // For a class method:
    @classmethod
    @instrument
    def foo():
        pass
-   
+
    // For a static method:
    @staticmethod
    @instrument
@@ -235,7 +235,7 @@ Using Otkt, we show how we can use OpenTelemetry to collect monitoring data from
    ```bash
    java -jar /path/to/Collector-0.0.1-SNAPSHOT-jar-with-dependencies.jar -c /path/to/config.txt
    ```
-   
+
 10. Run the target program. The results of the Kieker monitoring can be found in the output destination you specified in "config.txt" above.
 
 11. we use the Kieker Trace Analysis to analyze the target program.
