@@ -34,9 +34,7 @@ Using Otkt, we show how we can use OpenTelemetry to collect monitoring data from
 
 ## Instructions
 
-### Write an Otkt program
-
-1. The following Otkt program example defines a mapping from an OTel Span to a Kieker OperationExecutionRecord. Create a file with the code and save it with an `otkt` extension.
+1. The following Otkt demo program defines a mapping from an OTel Span to a Kieker OperationExecutionRecord. Create a file with the code and save it with an `otkt` extension.
 
    ```
    Span: OTelSpan {
@@ -91,14 +89,14 @@ Using Otkt, we show how we can use OpenTelemetry to collect monitoring data from
      └ pom.xml
    ```
 
-4. Build the Otkt collector with maven.
+3. Build the Otkt collector with maven.
    ```bash
    cd MyOutput/collector
    mvn compile
    mvn install
    ```
 
-7. Create `config.txt` with the following content.
+4. Create `config.txt` with the following content.
 
    ```
    ## The name of the Kieker instance.
@@ -156,18 +154,16 @@ Using Otkt, we show how we can use OpenTelemetry to collect monitoring data from
    kieker.monitoring.writer.filesystem.FileWriter.bufferSize=81920
    ```
 
-8. Make sure to change the value for `kieker.monitoring.writer.filesystem.FileWriter.customStoragePath`. This is where all kieker records are stored as files.
+   * Make sure to change the value for `kieker.monitoring.writer.filesystem.FileWriter.customStoragePath`. This is where all kieker records are stored as files.
 
-9. Inside `collector/target` run `java -jar Collector-0.0.1-SNAPSHOT-jar-with-dependencies.jar -c <path/to/config.txt>`
+5. To instrument a python program, copy and paste python files from the generated `python` folder into the location of your python program.
 
-10. To instrument a python program, copy and paste python files from the generated `python` folder into the location of your python program.
-
-11. Inside the entry point of your Python program paste:
+6. Inside the entry point of your Python program paste:
     ```python
-    from otelinit import tracer
+    from otkt.otelinit import tracer
     ```
 
-12. To instrument a python program you can either follow standard manual approach by changing each function definition:
+7. To instrument a python program you can either follow standard manual approach by changing each function definition:
     ```python
     def foo():
           with tracer.start_as_current_span("foo") as foo:
@@ -226,7 +222,7 @@ Using Otkt, we show how we can use OpenTelemetry to collect monitoring data from
    def foo():
        pass
    ```
-10. Make sure you have all required dependencies. A python project usually comes with `requirements.txt`. Append the following lines:
+8. Make sure you have all required dependencies. A python project usually comes with `requirements.txt`. Append the following lines:
     ```
     opentelemetry-api==1.18.0
     opentelemetry-sdk==1.18.0
@@ -234,9 +230,12 @@ Using Otkt, we show how we can use OpenTelemetry to collect monitoring data from
     opentelemetry-instrumentation==0.40b0
     kiekerforpython
     ```
-11. You can run your code. The results of the kieker monitoring can be found in the output destination you specified in "config.txt" above.
 
-12. To analyze the output you can use trace analysis of kieker.
-Download the trace-analysis tool.
+9. Run the Otkt collector
+   ```bash
+   java -jar /path/to/Collector-0.0.1-SNAPSHOT-jar-with-dependencies.jar -c /path/to/config.txt
+   ```
+   
+10. Run the target program. The results of the Kieker monitoring can be found in the output destination you specified in "config.txt" above.
 
-13. Run
+11. we use the Kieker Trace Analysis to analyze the target program.
