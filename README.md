@@ -145,28 +145,26 @@ kieker.monitoring.writer.filesystem.FileWriter.bufferSize=81920
 
 9. Inside the entry point of your Python program paste:
 
-```python
-from otelinit import tracer
-```
+    ```python
+    from otelinit import tracer
+    ```
 
 10. To instrument a python program you can either follow standard manual approach by changing each function definition:
 
-```python
-def foo():
-      with tracer.start_as_current_span("foo") as foo:
-            func_name = foo.__name__
-            module = foo.__module__
-            fq = f'{module}.{func_name}'
-            foo.set_attribute("operation_signature", fq)
-            foo.set_attribute("session_id", "<no-session-id>")
-            foo.set_attribute("hostname", "localhost")
-            foo.set_attribute("ess", "0")
-            
-            #Implementation here
+    ```python
+    def foo():
+          with tracer.start_as_current_span("foo") as foo:
+                func_name = foo.__name__
+                module = foo.__module__
+                fq = f'{module}.{func_name}'
+                foo.set_attribute("operation_signature", fq)
+                foo.set_attribute("session_id", "<no-session-id>")
+                foo.set_attribute("hostname", "localhost")
+                foo.set_attribute("ess", "0")
 
-    
-}
-```
+             #Implementation here    
+    }
+    ```
 
 * Alternatively, you can make a Python module `OTelInstument.py` defining a decorator (recommended):
 * Mapped to Kieker's OperationExecutionMethod
