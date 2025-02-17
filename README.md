@@ -70,7 +70,7 @@ In this tutorial, we show how we can use OpenTelemetry to collect monitoring dat
    }
    ```
 
-2. Run `java -jar otkt.jar <otkt/file> <output/destination>`. It creates three Python modules and one Kiker collector.
+2. Run `java -jar otkt.jar <otkt/file> <output/destination>`. It creates three Python modules and one Kieker collector.
    ```
    output/
    ├ python/
