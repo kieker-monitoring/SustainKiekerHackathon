@@ -185,12 +185,12 @@ Using Otkt, we show how we can use OpenTelemetry to collect monitoring data from
        from opentelemetry import trace
 
        # Create a OTel tracer
-       tracer = trace.get_trace(__name__)
+       tracer = trace.get_tracer(__name__)
        def instrument(func):
            attributes = { "ess": 0
            }
            def instrument_func(*args, **kwargs):
-               with tracer.start_as_current_span("foo", attributes=attributes) as foo:
+               with tracer.start_as_current_span("OTelSpan", attributes=attributes) as foo:
                    func_name = func.__name__
                    module = func.__module__
                    fq = f'{module}.{func_name}'
