@@ -36,7 +36,7 @@ In this tutorial, we show how we can use OpenTelemetry to collect monitoring dat
 
 ### Otkt generator
 
-1. The following code defines a mapping from an OTel Span to a Kieker OperationExecutionRecord. Create a file with the code and save it with an `otkt` extension.
+1. The following Otkt program defines a mapping from an OTel Span to a Kieker OperationExecutionRecord. Create a file with the code and save it with an `otkt` extension.
 
    ```
    Span: OTelSpan {
