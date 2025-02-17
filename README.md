@@ -231,11 +231,15 @@ Using Otkt, we show how we can use OpenTelemetry to collect monitoring data from
     kiekerforpython
     ```
 
-9. Run the Otkt collector
+9. Run the Otkt collector on a separate terminal.
    ```bash
    java -jar /path/to/Collector-0.0.1-SNAPSHOT-jar-with-dependencies.jar -c /path/to/config.txt
    ```
 
-10. Run the target program. The results of the Kieker monitoring can be found in the output destination you specified in "config.txt" above.
+10. On a new terminal, run the target program (e.g., `python3 main.py` as below). You need the PYTHONPATH environmental variable exported to locate all otkt modules. See that the Otkt collector runs in the background to receive all created monitoring records. The collected monitoring recrods can be found in the output destination you specified in "config.txt" above.
+    ```bash
+    export PYTHONPATH=${PWD}:$PYTHONPATH
+    python3 main.py
+    ```
 
 11. we use the Kieker Trace Analysis to analyze the target program.
