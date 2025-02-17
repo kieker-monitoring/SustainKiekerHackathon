@@ -70,12 +70,24 @@ In this tutorial, we show how we can use OpenTelemetry to collect monitoring dat
    }
    ```
 
-2. Run `java -jar otkt.jar <otkt/file> <output/destination>`
+2. Run `java -jar otkt.jar <otkt/file> <output/destination>`. It creates three Python modules and one Kiker collector.
+   ```
+   output/
+   ├ python/
+   │ ├ kiekerexporter.py
+   │ ├ kiekerprocessor.py
+   │ └ otelinit.py
+   └ collector/
+     ├ src/main/java/
+     │ ├ Main.java
+     │ └ CollectorConfiguration.java
+     └ pom.xml
+   ```
 
-3. In the ouput folder you will find `collector` and `python` folders.
+4. In the ouput folder you will find `collector` and `python` folders.
 Go to `collector` and run `mvn compile` `mvn install`
 
-4. Create `config.txt` with following content:
+5. Create `config.txt` with following content:
 
    ```
    ## The name of the Kieker instance.
@@ -133,18 +145,18 @@ Go to `collector` and run `mvn compile` `mvn install`
    kieker.monitoring.writer.filesystem.FileWriter.bufferSize=81920
    ```
 
-5. Change the value for `kieker.monitoring.writer.filesystem.FileWriter.customStoragePath`.
+6. Change the value for `kieker.monitoring.writer.filesystem.FileWriter.customStoragePath`.
 
-6. Inside `collector/target` run `java -jar Collector-0.0.1-SNAPSHOT-jar-with-dependencies.jar -c <path/to/config.txt>`
+7. Inside `collector/target` run `java -jar Collector-0.0.1-SNAPSHOT-jar-with-dependencies.jar -c <path/to/config.txt>`
 
-7. To instrument a python program, copy and paste python files from the generated `python` folder into the location of your python program.
+8. To instrument a python program, copy and paste python files from the generated `python` folder into the location of your python program.
 
-8. Inside the entry point of your Python program paste:
+9. Inside the entry point of your Python program paste:
     ```python
     from otelinit import tracer
     ```
 
-9. To instrument a python program you can either follow standard manual approach by changing each function definition:
+10. To instrument a python program you can either follow standard manual approach by changing each function definition:
     ```python
     def foo():
           with tracer.start_as_current_span("foo") as foo:
