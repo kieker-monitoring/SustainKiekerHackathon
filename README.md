@@ -87,7 +87,7 @@ Using Otkt, we show how we can use OpenTelemetry to collect monitoring data from
 4. In the ouput folder you will find `collector` and `python` folders.
 Go to `collector` and run `mvn compile` `mvn install`
 
-5. Create `config.txt` with following content:
+5. Create `config.txt` with the following content.
 
    ```
    ## The name of the Kieker instance.
@@ -145,7 +145,7 @@ Go to `collector` and run `mvn compile` `mvn install`
    kieker.monitoring.writer.filesystem.FileWriter.bufferSize=81920
    ```
 
-6. Change the value for `kieker.monitoring.writer.filesystem.FileWriter.customStoragePath`.
+6. Make sure to change the value for `kieker.monitoring.writer.filesystem.FileWriter.customStoragePath`. This is where all kieker records are stored as files.
 
 7. Inside `collector/target` run `java -jar Collector-0.0.1-SNAPSHOT-jar-with-dependencies.jar -c <path/to/config.txt>`
 
