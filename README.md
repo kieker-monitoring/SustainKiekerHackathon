@@ -162,17 +162,21 @@ Using Otkt, we show how we can use OpenTelemetry to collect monitoring data from
 
    * Make sure to change the value for `kieker.monitoring.writer.filesystem.FileWriter.customStoragePath`. This is where all kieker records are stored as files.
 
-5. To instrument a python program, copy the generated `otkt` directory into the root path of your python program.
+5. To instrument a python program, export the parent path of the `otkt` directory to the `PYTHONPATH` variable.
    ```bash
-   cp MyOutput/otkt /path/to/python/program
+   export PYTHONPATH=/path/to/parent/of/otkt:$PYTHONPATH
    ```
 
-7. Inside the entry point of your Python program paste:
+7. Prepend the following line to all Python files fo the target program:
     ```python
     from otkt.otelinit import tracer
     ```
+8. Prepend the following line before all Python method definitions:
+   ```python
+   @instrument
+   ```
 
-8. To instrument a python program you can either follow standard manual approach by changing each function definition:
+9. To instrument a python program you can either follow standard manual approach by changing each function definition:
     ```python
     def foo():
           with tracer.start_as_current_span("foo") as foo:
@@ -231,7 +235,7 @@ Using Otkt, we show how we can use OpenTelemetry to collect monitoring data from
        def foo():
            pass
        ```
-9. Make sure you have all required dependencies. A python project usually comes with `requirements.txt`. Append the following lines:
+10. Make sure you have all required dependencies. A python project usually comes with `requirements.txt`. Append the following lines:
     ```
     opentelemetry-api==1.18.0
     opentelemetry-sdk==1.18.0
@@ -240,15 +244,15 @@ Using Otkt, we show how we can use OpenTelemetry to collect monitoring data from
     kiekerforpython
     ```
 
-10. Run the Otkt collector on a separate terminal.
+11. Run the Otkt collector on a separate terminal.
    ```bash
    java -jar /path/to/Collector-0.0.1-SNAPSHOT-jar-with-dependencies.jar -c /path/to/config.txt
    ```
 
-11. On a new terminal, run the target program (e.g., `python3 main.py` as below). You need the PYTHONPATH environmental variable exported to locate all otkt modules. See that the Otkt collector runs in the background to receive all created monitoring records. The collected monitoring recrods can be found in the output destination you specified in "config.txt" above.
+12. On a new terminal, run the target program (e.g., `python3 main.py` as below). You need the PYTHONPATH environmental variable exported to locate all otkt modules. See that the Otkt collector runs in the background to receive all created monitoring records. The collected monitoring recrods can be found in the output destination you specified in "config.txt" above.
     ```bash
     export PYTHONPATH=${PWD}:$PYTHONPATH
     python3 main.py
     ```
 
-12. we use the Kieker Trace Analysis to analyze the target program.
+13. we use the Kieker Trace Analysis to analyze the target program.
