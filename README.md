@@ -179,49 +179,49 @@ Using Otkt, we show how we can use OpenTelemetry to collect monitoring data from
     }
     ```
 
-* Alternatively, you can make a Python module `OTelInstument.py` defining a decorator (recommended):
-  (Mapped to Kieker's OperationExecutionMethod)
-   ```python
-   from opentelemetry import trace
+    * Alternatively, you can make a Python module `OTelInstument.py` defining a decorator (recommended):
+      (Mapped to Kieker's OperationExecutionMethod)
+       ```python
+       from opentelemetry import trace
 
-   # Create a OTel tracer
-   tracer = trace.get_trace(__name__)
-   def instrument(func):
-       attributes = { "ess": 0
-       }
-       def instrument_func(*args, **kwargs):
-           with tracer.start_as_current_span("foo", attributes=attributes) as foo:
-               func_name = func.__name__
-               module = func.__module__
-               fq = f'{module}.{func_name}'
-               foo.set_attribute("operation_signature", fq) # We use module.func_name of Python program mapped as Java's fully qualified signature
-               foo.set_attribute("session_id", "<no-session-id>")  # session_id is only relevant with Kieker agent on Java applications
-               foo.set_attribute("hostname", "localhost") # Target application should provide hostname.
-               result = func(*args, **kwargs)
+       # Create a OTel tracer
+       tracer = trace.get_trace(__name__)
+       def instrument(func):
+           attributes = { "ess": 0
+           }
+           def instrument_func(*args, **kwargs):
+               with tracer.start_as_current_span("foo", attributes=attributes) as foo:
+                   func_name = func.__name__
+                   module = func.__module__
+                   fq = f'{module}.{func_name}'
+                   foo.set_attribute("operation_signature", fq) # We use module.func_name of Python program mapped as Java's fully qualified signature
+                   foo.set_attribute("session_id", "<no-session-id>")  # session_id is only relevant with Kieker agent on Java applications
+                   foo.set_attribute("hostname", "localhost") # Target application should provide hostname.
+                   result = func(*args, **kwargs)
 
-               return result
-       return instrument_func
-   ```
-* This decorator can then be used to annotate functions in python
-   ```python
-   from otkt import instrument
+                   return result
+           return instrument_func
+       ```
+    * This decorator can then be used to annotate functions in python
+       ```python
+       from otkt import instrument
 
-   @instrument
-   def foo():
-       pass
+       @instrument
+       def foo():
+           pass
 
-   // For a class method:
-   @classmethod
-   @instrument
-   def foo():
-       pass
+       // For a class method:
+       @classmethod
+       @instrument
+       def foo():
+           pass
 
-   // For a static method:
-   @staticmethod
-   @instrument
-   def foo():
-       pass
-   ```
+       // For a static method:
+       @staticmethod
+       @instrument
+       def foo():
+           pass
+       ```
 8. Make sure you have all required dependencies. A python project usually comes with `requirements.txt`. Append the following lines:
     ```
     opentelemetry-api==1.18.0
