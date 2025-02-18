@@ -1,4 +1,9 @@
-# Tutorial
+# SustainKieker Hackathon: Reverse Engineering of Research Software
+
+🗓️ Thu 27/02, 13:30
+<br>📍 Room SR 206, Building 30.70, Campus South (KIT)
+<br>🌐 [The SustainKieker Project Homepage](https://sustainkieker.kieker-monitoring.net)
+<br>ℹ️ [Abstract](https://events.hifis.net/event/1741/contributions/14031/)
 
 ## What is it about?
 
