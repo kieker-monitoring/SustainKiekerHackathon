@@ -14,7 +14,7 @@ kieker.monitoring.writer=kieker.monitoring.writer.filesystem.FileWriter
 ## output path
 
 
-kieker.monitoring.writer.filesystem.FileWriter.customStoragePath=/home/sya/tmp
+kieker.monitoring.writer.filesystem.FileWriter.customStoragePath=/tmp
 
 
 kieker.monitoring.writer.filesystem.FileWriter.charsetName=UTF-8

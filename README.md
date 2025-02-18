@@ -48,208 +48,53 @@ Using Otkt, we show how we can use OpenTelemetry to collect monitoring data from
    ```
 
 ## Important
-Instrumenting a Python software may require downloading the source code and building a package. In this case, follow the instruction below and repackage it yourself. It could be as simple as running `python3 -m build`. Otherwise, you need to follow the provided build instruction.
+
+Instrumenting a Python software may require downloading the source code and
+building a package. In this case, follow the instruction below and repackage it
+yourself. It could be as simple as running `python3 -m build`. Otherwise, you
+need to follow the provided build instruction.
+
 ```bash
-# Instrument the target software
+# Instrument the target software before running the below commands
+pip install build
 python3 -m build
 ```
 
+## Otkt DSL
+
+* [BUILD.md](BUILD.md) describes how to build an Otkt program.
+* The repository provides all artifacts from an Otkt build.
+
 ## Instructions
 
-1. The following Otkt demo program defines a mapping from an OTel Span to a Kieker OperationExecutionRecord. Create a file with the code and save it with an `otkt` extension.
-
-   ```
-   Span: OTelSpan {
-      // Semantic types for the default OpenTelemetry span parameters
-   	trace:  trace
-   	parentSpan:   parentspan
-   	spanId:  spanId
-   	startT:  startT
-   	endT: endT
-
-      // Additional attributes to the OpenTelemetry span
-   	attributes:
-   	type string operation_signature
-   	type string session_id
-   	type int eoi
-   	type int ess
-   	type string hostname
-
-   }
-
-   // Declare usage of existing Kieker record type
-   Reuse: OperationExecutionRecord
-
-   // Describe a mapping between the OTel span and the Kieker record
-   default mapping OTelSpan -> OperationExecutionRecord
-
-   // Declare where the collector runs and recceives the Kieker records
-   collector:{
-   	port: 1234
-   	hostname: "localhost"
-   }
-   ```
-
-2. Build the Otkt program with the below command:
-
+1. Build the Otkt collector with Maven.
    ```bash
-   java -jar /path/to/otkt.jar /path/to/MyMapping.otkt /path/to/MyOutput
-   ```
-
-   It creates three Python modules and an Otkt collector:
-
-   ```
-   MyOutput/
-   ├ otkt/
-   │ ├ kiekerexporter.py
-   │ ├ kiekerprocessor.py
-   │ └ otelinit.py
-   └ collector/
-     ├ src/main/java/
-     │ ├ Main.java
-     │ └ CollectorConfiguration.java
-     └ pom.xml
-   ```
-
-3. Build the Otkt collector with maven.
-   ```bash
-   cd /path/to/MyOutput/collector
+   cd collector
    mvn clean package
    ```
 
-4. Create `config.txt` with the following content.
-
-   ```
-   ## The name of the Kieker instance.
-   kieker.monitoring.name=KIEKER
-
-   ## Auto detect hostname for the writer
-   kieker.monitoring.hostname=
-
-   ## Output metadata record
-   kieker.monitoring.metadata=true
-
-
-   kieker.monitoring.writer=kieker.monitoring.writer.filesystem.FileWriter
-
-   ## FileWriter settings
-   ## output path
-
-
-   kieker.monitoring.writer.filesystem.FileWriter.customStoragePath=/path/to/kieker/ouput
-
-
-   kieker.monitoring.writer.filesystem.FileWriter.charsetName=UTF-8
-
-   ## Number of entries per file
-   kieker.monitoring.writer.filesystem.FileWriter.maxEntriesInFile=25000
-
-   ## Limit of the log file size; -1 no limit
-   kieker.monitoring.writer.filesystem.FileWriter.maxLogSize=-1
-
-   ## Limit number of log files; -1 no limit
-   kieker.monitoring.writer.filesystem.FileWriter.maxLogFiles=-1
-
-   ## Map files are written as text files
-   kieker.monitoring.writer.filesystem.FileWriter.mapFileHandler=kieker.monitoring.writer.filesystem.TextMapFileHandler
-
-   ## Flush map file after each record
-   kieker.monitoring.writer.filesystem.TextMapFileHandler.flush=true
-
-   ## Do not compress the map file
-   kieker.monitoring.writer.filesystem.TextMapFileHandler.compression=kieker.monitoring.writer.compression.NoneCompressionFilter
-
-   ## Log file pool handler
-   kieker.monitoring.writer.filesystem.FileWriter.logFilePoolHandler=kieker.monitoring.writer.filesystem.RotatingLogFilePoolHandler
-
-   ## Text log for record data
-   kieker.monitoring.writer.filesystem.FileWriter.logStreamHandler=kieker.monitoring.writer.filesystem.TextLogStreamHandler
-
-   ## Do not compress the log file
-   kieker.monitoring.writer.filesystem.TextLogStreamHandler.compression=kieker.monitoring.writer.compression.NoneCompressionFilter
-
-   ## Flush log data after every record
-   kieker.monitoring.writer.filesystem.FileWriter.flush=true
-
-   ## buffer size. The log buffer size must be big enough to hold the biggest record
-   kieker.monitoring.writer.filesystem.FileWriter.bufferSize=81920
-   ```
-
-   * Make sure to change the value for `kieker.monitoring.writer.filesystem.FileWriter.customStoragePath`. This is where all kieker records are stored as files.
-
-5. To instrument a python program, export the parent path of the `otkt` directory to the `PYTHONPATH` variable.
+2. To instrument a python program, export the parent path of the `otkt`
+   directory to the `PYTHONPATH` variable:
    ```bash
    export PYTHONPATH=/path/to/parent/of/otkt:$PYTHONPATH
    ```
+   i.e.,
+   ```bash
+   export PYTHONPATH=/path/to/hackathon/python:$PYTHONPATH
+   ```
 
-7. Prepend the following line to all Python files fo the target program:
+3. Prepend the following line to all Python files of the target program:
     ```python
     from otkt.otelinit import tracer
     ```
-8. Prepend the following line before all Python method definitions:
+
+4. Prepend the following line before all Python method definitions:
    ```python
    @instrument
    ```
 
-9. To instrument a python program you can either follow standard manual approach by changing each function definition:
-    ```python
-    def foo():
-          with tracer.start_as_current_span("foo") as foo:
-                func_name = foo.__name__
-                module = foo.__module__
-                fq = f'{module}.{func_name}'
-                foo.set_attribute("operation_signature", fq)
-                foo.set_attribute("session_id", "<no-session-id>")
-                foo.set_attribute("hostname", "localhost")
-                foo.set_attribute("ess", "0")
+5. Make sure you have all required dependencies. A python project usually comes with `requirements.txt`. Append the following lines:
 
-             #Implementation here
-    }
-    ```
-
-    * Alternatively, you can make a Python module `instument.py` defining a decorator (recommended). Place the file inside the `otkt` folder.
-       ```python
-       from opentelemetry import trace
-
-       # Create a OTel tracer
-       tracer = trace.get_tracer(__name__)
-       def instrument(func):
-           attributes = { "ess": 0
-           }
-           def instrument_func(*args, **kwargs):
-               with tracer.start_as_current_span("OTelSpan", attributes=attributes) as foo:
-                   func_name = func.__name__
-                   module = func.__module__
-                   fq = f'{module}.{func_name}'
-                   foo.set_attribute("operation_signature", fq) # We use module.func_name of Python program mapped as Java's fully qualified signature
-                   foo.set_attribute("session_id", "<no-session-id>")  # session_id is only relevant with Kieker agent on Java applications
-                   foo.set_attribute("hostname", "localhost") # Target application should provide hostname.
-                   result = func(*args, **kwargs)
-
-                   return result
-           return instrument_func
-       ```
-    * This decorator can then be used to annotate functions in python
-       ```python
-       from otkt import instrument
-
-       @instrument
-       def foo():
-           pass
-
-       // For a class method:
-       @classmethod
-       @instrument
-       def foo():
-           pass
-
-       // For a static method:
-       @staticmethod
-       @instrument
-       def foo():
-           pass
-       ```
-10. Make sure you have all required dependencies. A python project usually comes with `requirements.txt`. Append the following lines:
     ```
     opentelemetry-api==1.18.0
     opentelemetry-sdk==1.18.0
@@ -258,15 +103,34 @@ python3 -m build
     kiekerforpython
     ```
 
-11. Run the Otkt collector on a separate terminal.
+6. Run the Otkt collector on a separate terminal.
+
    ```bash
    java -jar /path/to/Collector-0.0.1-SNAPSHOT-jar-with-dependencies.jar -c /path/to/config.txt
    ```
 
-12. On a new terminal, run the target program (e.g., `python3 main.py` as below). You need the PYTHONPATH environmental variable exported to locate all otkt modules. See that the Otkt collector runs in the background to receive all created monitoring records. The collected monitoring recrods can be found in the output destination you specified in "config.txt" above.
+7. On a new terminal, run the target program (e.g., `python3 main.py` as
+   below). You need the PYTHONPATH environmental variable exported to locate
+   all otkt modules. See that the Otkt collector runs in the background to
+   receive all created monitoring records. The collected monitoring recrods can
+   be found in the output destination you specified in "config.txt" above.
+
     ```bash
     export PYTHONPATH=${PWD}:$PYTHONPATH
     python3 main.py
     ```
 
-13. we use the Kieker Trace Analysis to analyze the target program.
+8. we use the Kieker Trace Analysis to analyze the target program.
+
+## Options
+1. The Otkt collector stores all received records under `/tmp`. E.g.,
+
+   ```
+   /tmp/kieker-20250217-181132-41826294550971-UTC--KIEKER/
+   /tmp/kieker-20250218-093839-12420615078112-UTC--KIEKER/
+   /tmp/kieker-20250218-114626-20087904425947-UTC--KIEKER/
+   ```
+
+   You can change the location by changing the value for
+   `kieker.monitoring.writer.filesystem.FileWriter.customStoragePath` in
+   [res/config.txt](res/config.txt).
