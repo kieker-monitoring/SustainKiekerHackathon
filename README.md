@@ -2,8 +2,9 @@
 
 🗓️ Thu 27/02, 13:30
 <br>📍 Room SR 206, Building 30.70, Campus South (KIT)
-<br>🌐 [The SustainKieker Project Homepage](https://sustainkieker.kieker-monitoring.net)
 <br>ℹ️ [Abstract](https://events.hifis.net/event/1741/contributions/14031/)
+<br>🌐 [The SustainKieker Project Homepage](https://sustainkieker.kieker-monitoring.net)
+<br>🔬 [The Kieker Observability Framework](https://kieker-monitoring.net)
 
 ## What is it about?
 
