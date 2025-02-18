@@ -8,14 +8,16 @@ Using Otkt, we show how we can use OpenTelemetry to collect monitoring data from
 
 ## Prerequistes
 
-1. Java. E.g.,:
+1. Python3
+
+2. Java (e.g., OpenJDK 21)
    ```bash
    # Fedora 40, 41, 42
    sudo dnf install java-21-openjdk-devel
    # Ubuntu 20.04, 22.04, 24.04, 24.10
    sudo apt install openjdk-21-jdk
    ```
-1. Maven
+3. Maven
    1. Install manually: [https://maven.apache.org/install.html](https://maven.apache.org/install.html)
    2. From distribution repositories:
       ```bash
@@ -24,14 +26,14 @@ Using Otkt, we show how we can use OpenTelemetry to collect monitoring data from
       # Ubuntu 20.04, 22.04, 24.04, 24.10
       sudo apt install maven
       ```
-3. [GNU plotutils](http://www.gnu.org/software/plotutils/)
+4. [GNU plotutils](http://www.gnu.org/software/plotutils/)
    ```bash
    # Fedora 40, 41, 42
    sudo dnf install plotutils
    # Ubuntu 20.04, 22.04, 24.04, 24.10
    sudo apt install plotutils
    ```
-3. The [graphviz](http://www.graphviz.org/) graph visualization tools
+5. The [graphviz](http://www.graphviz.org/) graph visualization tools
    ```bash
    # Fedora 40, 41, 42
    sudo dnf install graphviz
