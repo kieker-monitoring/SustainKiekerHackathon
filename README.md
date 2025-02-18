@@ -89,19 +89,24 @@ python3 -m build
     ```
 
 4. Prepend the following line before all Python method definitions:
+
    ```python
    @instrument
    ```
 
-5. Make sure you have all required dependencies. A python project usually comes with `requirements.txt`. Append the following lines:
+   * It is important to adhere to the indentation of each method definitions.
 
-    ```
-    opentelemetry-api==1.18.0
-    opentelemetry-sdk==1.18.0
-    opentelemetry-exporter-otlp==1.18.0
-    opentelemetry-instrumentation==0.40b0
-    kiekerforpython
-    ```
+5. Make sure you have all required dependencies below. A python project usually
+   comes with `requirements.txt`. Append all dependencies in
+   [res/requirements.txt](res/requirements.txt) to the target software's
+   `requirements.txt`.
+
+   * If the software does not provide such file, you may copy the provided
+     requirements.txt file and use it as followed by:
+
+   ```bash
+   pip install -r requirements.txt 
+   ```
 
 6. Run the Otkt collector on a separate terminal.
 
