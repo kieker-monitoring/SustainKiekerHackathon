@@ -13,6 +13,7 @@
    * [Linux system](#linux-system)
    * [Software](#software)
 1. [Instructions](#instructions)
+1. [Run the Kieker Trace Analysis](#run-the-kieker-trace-analysis)
 1. [More reads](#more-reads)
 
 ## Introduction
@@ -129,7 +130,7 @@ Using Otkt, we show how we can use OpenTelemetry to collect monitoring data from
     python3 main.py
     ```
 
-1. Run the Kieker Trace Analysis to analyze the target program.
+## Run the Kieker Trace Analysis
 
    * Prepare Trace Analysis
      ```bash
