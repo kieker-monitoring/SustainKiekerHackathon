@@ -57,6 +57,7 @@ Using Otkt, we show how we can use OpenTelemetry to collect monitoring data from
    sudo apt install maven
    ```
    or [install manually](https://maven.apache.org/install.html).
+
 1. [GNU plotutils](http://www.gnu.org/software/plotutils/)
    ```bash
    # Fedora 40, 41, 42
@@ -70,6 +71,14 @@ Using Otkt, we show how we can use OpenTelemetry to collect monitoring data from
    sudo dnf install graphviz
    # Ubuntu 20.04, 22.04, 24.04, 24.10
    sudo apt install graphviz
+   ```
+
+1. The [Ghostscript](https://ghostscript.com/) interpreter for PostScript language & PDF
+   ```bash
+   # Fedora 40, 41, 42
+   sudo dnf install ghostscript
+   # Ubuntu 20.04, 22.04, 24.04, 24.10
+   sudo apt install ghostscript
    ```
 
 ## Instructions
@@ -120,7 +129,50 @@ Using Otkt, we show how we can use OpenTelemetry to collect monitoring data from
     python3 main.py
     ```
 
-1. we use the Kieker Trace Analysis to analyze the target program.
+1. Run the Kieker Trace Analysis to analyze the target program.
+
+   * Prepare Trace Analysis
+     ```bash
+     # Run inside the hackathon repository
+     unzip tools/trace-analysis-2.0.2.zip
+     ```
+
+   * Aggregated Deployment Call Tree
+     ```bash
+     # Run inside the hackathon repository
+     mkdir output-adctree
+     trace-analysis-2.0.2/bin/trace-analysis  \
+       --inputdirs /path/to/kieker-logs       \
+       --outputdir output-adctree             \
+       --plot-Aggregated-Deployment-Call-Tree
+     cd output-adctree
+     dot aggregatedDeploymentCallTree.dot -T pdf output.pdf
+     ```
+
+   * Deployment Component Dependency Graph
+     ```bash
+     # Run inside the hackathon repository
+     mkdir output-dcdgraph
+     trace-analysis-2.0.2/bin/trace-analysis             \
+       --inputdirs /path/to/kieker-logs                  \
+       --outputdir output-dcdgraph
+       --plot-Deployment-Component-Dependency-Graph none
+     cd output-dcdgraph
+     dot deploymentComponentDependencyGraph.dot -T pdf output.pdf
+     ```
+
+   * Deployment Sequence Diagrams
+     ```bash
+     # Run inside the hackathon repository
+     mkdir output-dsdiagrams
+     trace-analysis-2.0.2/bin/trace-analysis             \
+       --inputdirs /path/to/kieker-logs                  \
+       --outputdir output-dsdiagrams
+       --plot-Deployment-Sequence-Diagrams
+     cd output-dsdiagrams
+     pic2plot -T ps deploymentSequenceDiagram-1.pic > output.ps
+     ps2pdf outout.ps output.pdf
+     ```
 
 ## More Reads
 1. The Otkt collector stores all received records under `/tmp`. E.g.,
