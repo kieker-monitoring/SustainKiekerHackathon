@@ -88,7 +88,7 @@ Using Otkt, we show how we can use OpenTelemetry to collect monitoring data from
    export PYTHONPATH=/path/to/hackathon-repo/python:$PYTHONPATH
    ```
 
-1. Instrument all python files of the target software.
+1. Instrument all python files of the target software using [`instrument-py.sh`](tools/instrument-py.sh)
 
    ```bash
    # Run inside the target software repository:
