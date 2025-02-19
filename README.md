@@ -88,16 +88,11 @@ Using Otkt, we show how we can use OpenTelemetry to collect monitoring data from
    export PYTHONPATH=/path/to/hackathon-repo/python:$PYTHONPATH
    ```
 
-1. Prepend the following line to all Python files of the target program.
+1. Instrument all python files of the target software.
 
-    ```python
-    from otkt.otelinit import tracer
-    ```
-
-1. Prepend the following line before all Python method definitions:
-
-   ```python
-   @instrument
+   ```bash
+   # Run inside the target software repository:
+   /path/to/hackathon-repo/tools/instrument-py.sh
    ```
 
    * It is important to adhere to the indentation of each method definitions.
@@ -108,7 +103,7 @@ Using Otkt, we show how we can use OpenTelemetry to collect monitoring data from
    `requirements.txt`.
 
    ```bash
-   # Run inside the Python software repository:
+   # Run inside the target software repository:
    pip install -r requirements.txt 
    ```
 
@@ -121,7 +116,7 @@ Using Otkt, we show how we can use OpenTelemetry to collect monitoring data from
 1. On a new terminal, run the target program (e.g., `python3 main.py`).
 
     ```bash
-    # Run inside the Python software repository:
+    # Run inside the target software repository:
     python3 main.py
     ```
 
