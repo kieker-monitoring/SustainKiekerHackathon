@@ -153,10 +153,10 @@ need to follow the provided build instruction.
    python3 -m build
    ```
 
-1. Building an Otkt source code
+1. Building an Otkt program
 
    For the Hackathon, we provide all artifacts from the Otkt build of the Otkt source code [demo.otkt](examples/demo.otkt). For more details, refer to [BUILD.md](BUILD.md).
 
-1. Building an Otkt compiler
+1. Building the Otkt compiler
 
    The Otkt compiler is maintained in the GitHub repository [OtktDSL](https://github.com/silvergl/OtktDSL). The instruction will be uploaded soon.
