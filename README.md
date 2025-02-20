@@ -19,7 +19,7 @@
 ## Introduction
 
 [Kieker observability framework](https://kieker-monitoring.net/) features monitoring and analysis capabilities.
-OpenTelemetry, in comparison, provides means to monitor the program but analysis. Our new [Otkt DSL](https://github.com/silvergl/OtktDSL) can define a mapping from an OpenTelemetry Span to a Kieker record.
+OpenTelemetry, in comparison, provides means to monitor the program but analysis. Our new [Otkt DSL](https://github.com/kieker-monitoring/OtktDSL) can define a mapping from an OpenTelemetry Span to a Kieker record.
 Using Otkt, we show how we can use OpenTelemetry to collect monitoring data from a Python program and send it to a Kieker Analysis endpoint.
 
 ## Prerequisites
@@ -213,4 +213,4 @@ need to follow the provided build instruction.
 
 1. Building the Otkt compiler
 
-   The Otkt compiler is maintained in the GitHub repository [OtktDSL](https://github.com/silvergl/OtktDSL). The instruction will be uploaded soon.
+   The Otkt compiler is maintained in the GitHub repository [OtktDSL](https://github.com/kieker-monitoring/OtktDSL). The instruction will be uploaded soon.
