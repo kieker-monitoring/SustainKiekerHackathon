@@ -27,11 +27,9 @@ Using Otkt, we show how we can use OpenTelemetry to collect monitoring data from
 ### Linux system
    
 #### macOS
-* Multipass[^1] ([latest download](https://canonical.com/multipass/download/macos))
+* [Multipass](https://github.com/canonical/multipass) ([latest download](https://canonical.com/multipass/download/macos))
   - [x] M1, M2, or Intel based
   - [x] macOS 10.15 Catalina or later
-
-[^1]: [Multipass](https://github.com/canonical/multipass) is a lightweight VM manager for Linux, Windows and macOS from Canonical.
 
 #### Windows 10/11 (two options)
 * Multipass ([latest download](https://canonical.com/multipass/download/windows))
