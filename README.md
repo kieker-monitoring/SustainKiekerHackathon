@@ -24,6 +24,13 @@ Using Otkt, we show how we can use OpenTelemetry to collect monitoring data from
 
 ## Prerequisites
 
+### Jupyter Notebook
+* We encourage partiicpants to use the provided Jupyter Notebook docker, which runs on Ubuntu 24.04.
+
+```bash
+docker run -p 8888:8888 kieker/sustainkieker-hackathon
+```
+
 ### Linux system
    
 #### macOS
@@ -151,7 +158,7 @@ Using Otkt, we show how we can use OpenTelemetry to collect monitoring data from
        --outputdir output-adctree             \
        --plot-Aggregated-Deployment-Call-Tree
      cd output-adctree
-     dot aggregatedDeploymentCallTree.dot -T pdf output.pdf
+     dot aggregatedDeploymentCallTree.dot -T pdf -o output.pdf
      ```
 
    * Deployment Component Dependency Graph
@@ -163,7 +170,7 @@ Using Otkt, we show how we can use OpenTelemetry to collect monitoring data from
        --outputdir output-dcdgraph
        --plot-Deployment-Component-Dependency-Graph none
      cd output-dcdgraph
-     dot deploymentComponentDependencyGraph.dot -T pdf output.pdf
+     dot deploymentComponentDependencyGraph.dot -T pdf -o output.pdf
      ```
 
    * Deployment Sequence Diagrams
