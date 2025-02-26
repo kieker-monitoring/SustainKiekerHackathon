@@ -16,7 +16,11 @@ RUN git clone https://github.com/kieker-monitoring/SustainKiekerHackathon.git --
 
 RUN ln -s /home/jovyan/SustainKiekerHackathon/notebooks/README.ipynb /home/jovyan/README.ipynb
 
-RUN mkdir ~/kieker-logs
+RUN ln -s /home/jovyan/SustainKiekerHackathon /home/jovyan/Hackathon
+
+RUN mkdir ~/.ssh ~/kieker-logs
 
 RUN sed -i 's@/tmp@'"${PWD}"'/kieker-logs@g' ~/SustainKiekerHackathon/res/config.txt
+
+RUN echo 'export PYTHONPATH=/home/jovyan/SustainKiekerHackathon/python:$PYTHONPATH' >> /home/jovyan/.bashrc
 
