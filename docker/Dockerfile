@@ -7,8 +7,6 @@ RUN ln -snf /usr/share/zoneinfo/$CONTAINER_TIMEZONE /etc/localtime && echo $CONT
 RUN apt update && \
     apt install -y openjdk-21-jdk maven plotutils graphviz ghostscript vim
 
-RUN apt install -y python3-build
-
 USER jovyan
 
 RUN git clone https://github.com/kieker-monitoring/SustainKiekerHackathon.git --branch main --depth 1 && \
@@ -26,6 +24,8 @@ RUN sed -i 's@/tmp@'"${PWD}"'/kieker-logs@g' ~/SustainKiekerHackathon/res/config
 
 RUN echo 'export PYTHONPATH=/home/jovyan/SustainKiekerHackathon/python:$PYTHONPATH' >> /home/jovyan/.bashrc
 
-RUN cd ~/SustainKiekerHackathon && git pull && unzip ./tools/trace-analysis-2.0.2.zip
+RUN cd ~/SustainKiekerHackathon && git pull && unzip ./tools/trace-analysis-2.0.2.zip && ls
 
 RUN pip install -r ~/Hackathon/res/requirements.txt
+
+RUN pip install build
