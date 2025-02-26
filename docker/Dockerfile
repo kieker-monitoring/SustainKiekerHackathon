@@ -24,3 +24,4 @@ RUN sed -i 's@/tmp@'"${PWD}"'/kieker-logs@g' ~/SustainKiekerHackathon/res/config
 
 RUN echo 'export PYTHONPATH=/home/jovyan/SustainKiekerHackathon/python:$PYTHONPATH' >> /home/jovyan/.bashrc
 
+RUN cd ~/SustainKiekerHackathon && git pull
