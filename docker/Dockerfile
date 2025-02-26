@@ -24,7 +24,9 @@ RUN sed -i 's@/tmp@'"${PWD}"'/kieker-logs@g' ~/SustainKiekerHackathon/res/config
 
 RUN echo 'export PYTHONPATH=/home/jovyan/SustainKiekerHackathon/python:$PYTHONPATH' >> /home/jovyan/.bashrc
 
-RUN cd ~/SustainKiekerHackathon && git pull && unzip ./tools/trace-analysis-2.0.2.zip && ls
+RUN cd ~/SustainKiekerHackathon && unzip ./tools/trace-analysis-2.0.2.zip
+
+RUN cd ~/SustainKiekerHackathon && git pull
 
 RUN pip install -r ~/Hackathon/res/requirements.txt
 
