@@ -31,3 +31,5 @@ RUN cd ~/SustainKiekerHackathon && git pull
 RUN pip install -r ~/Hackathon/res/requirements.txt
 
 RUN pip install build
+
+RUN pip install --index-url https://test.pypi.org/simple/ --no-deps kieker-for-jupyter
