@@ -1,4 +1,4 @@
-FROM quay.io/jupyter/minimal-notebook
+FROM quay.io/jupyter/minimal-notebook:2025-02-26
 
 USER root
 
@@ -32,4 +32,8 @@ RUN pip install -r ~/Hackathon/res/requirements.txt
 
 RUN pip install build
 
-RUN pip install --index-url https://test.pypi.org/simple/ --no-deps kieker-for-jupyter
+RUN pip install pypdf
+
+RUN pip install graphviz
+
+RUN pip install --no-deps kieker-for-jupyter
