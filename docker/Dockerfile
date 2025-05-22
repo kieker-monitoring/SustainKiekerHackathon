@@ -1,4 +1,4 @@
-FROM quay.io/jupyter/minimal-notebook:2025-02-26
+FROM quay.io/jupyter/minimal-notebook:notebook-7.4.2
 
 USER root
 
@@ -13,6 +13,8 @@ RUN git clone https://github.com/kieker-monitoring/SustainKiekerHackathon.git --
     git clone https://github.com/toruseo/UXsim.git --branch v1.7.3 --depth 1 && \
     cd SustainKiekerHackathon/collector && \
     mvn clean package -DskipTests=true
+
+RUN sed -i 's/PyQt5>=5.15.7/PyQt6/g' ~/UXsim/pyproject.toml
 
 RUN ln -s /home/jovyan/SustainKiekerHackathon/notebooks/README.ipynb /home/jovyan/README.ipynb
 
